@@ -5,8 +5,10 @@
 
 #ifdef _WIN32
 #include <Windows.h>
+#define SLEEP Sleep
 #else
 #include <unistd.h>
+#define SLEEP sleep
 #endif
 
 void setMidiMessage(std::vector<unsigned char>& mmsg, unsigned char c1, unsigned char d1, unsigned char d2)
@@ -65,11 +67,11 @@ int main()
     setNoteOn(message);
     std::cout << "Switching middle C on.." << std::endl;
     midiout->sendMessage(&message);
-    Sleep(1000);
+    SLEEP(1000);
     setNoteOff(message);
     std::cout << "Switching middle C off.." << std::endl;
     midiout->sendMessage(&message);
-    Sleep(1000);
+    SLEEP(1000);
   }
   
   midiout->closePort();
